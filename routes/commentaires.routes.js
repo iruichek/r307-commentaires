@@ -14,5 +14,6 @@ const router = express.Router();
 // les six routes ici
 router.get('/articles/:id/commentaires', controleur.lister);
 router.post('/articles/:id/commentaires', controleur.creer);
+router.get('/commentaires/:id', controleur.trouver);
 
 module.exports = router;

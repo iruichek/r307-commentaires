@@ -30,4 +30,11 @@ function creer(req, res, next) {
     .catch(next);
 }
 
-module.exports = {lister,creer};
+function trouver(req, res, next) {
+  const id = Number(req.params.id);
+
+  service.trouver(id)
+    .then((commentaire) => res.json(commentaire))
+    .catch(next);
+}
+module.exports = {lister,creer,trouver};
