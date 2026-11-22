@@ -37,4 +37,17 @@ function trouver(req, res, next) {
     .then((commentaire) => res.json(commentaire))
     .catch(next);
 }
-module.exports = {lister,creer,trouver};
+
+function parVisiteur(req, res, next) {
+  const { nom } = req.query;
+
+  if (!nom) {
+    return next(new ErreurHttp(400, 'NOM_MANQUANT', 'Le nom est obligatoire.'));
+  }
+
+  service.parVisiteur(nom)
+    .then((commentaires) => res.json(commentaires))
+    .catch(next);
+}
+
+module.exports = {lister,creer,trouver,parVisiteur};
