@@ -7,7 +7,14 @@
 //   4. choisir le code (200, 201 ou 204). Toute erreur part vers next(err).
 // Le controleur ne parle JAMAIS a la base : pas de pool ici, seulement le service.
 
-// const service = require('../services/commentaires.service');
+const service = require('../services/commentaires.service');
 // const ErreurHttp = require('../utils/erreur-http');
 
-module.exports = {};
+function lister(req, res, next) {
+  const articleId = Number(req.params.id);
+  service.lister(articleId)
+    .then((commentaires) => res.json(commentaires))
+    .catch(next);
+}
+
+module.exports = {lister};
