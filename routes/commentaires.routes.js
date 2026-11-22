@@ -17,5 +17,6 @@ router.post('/articles/:id/commentaires', controleur.creer);
 router.get('/commentaires/:id', controleur.trouver);
 router.get('/commentaires', controleur.parVisiteur);
 router.patch('/commentaires/:id', verifierJeton, controleur.modifier);
+router.delete('/commentaires/:id', verifierJeton, controleur.supprimer);
 
 module.exports = router;
