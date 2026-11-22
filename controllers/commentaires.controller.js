@@ -8,7 +8,7 @@
 // Le controleur ne parle JAMAIS a la base : pas de pool ici, seulement le service.
 
 const service = require('../services/commentaires.service');
-// const ErreurHttp = require('../utils/erreur-http');
+const ErreurHttp = require('../utils/erreur-http');
 
 function lister(req, res, next) {
   const articleId = Number(req.params.id);
@@ -17,4 +17,17 @@ function lister(req, res, next) {
     .catch(next);
 }
 
-module.exports = {lister};
+function creer(req, res, next) {
+  const articleId = Number(req.params.id);
+  const { nom, texte } = req.body || {};
+
+  if (!nom || !texte) {
+    return next(new ErreurHttp(400, 'CHAMP_MANQUANT', 'Le nom et le texte sont obligatoires.'));
+  }
+
+  service.creer(articleId, { nom, texte })
+    .then((commentaire) => res.status(201).json(commentaire))
+    .catch(next);
+}
+
+module.exports = {lister,creer};
